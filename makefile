@@ -1,2 +1,2 @@
-hw2: simulation.c
-	gcc -o hw2 -lpthread simulation.c
+simulation: simulation.c
+	gcc -o simulation -lpthread simulation.c

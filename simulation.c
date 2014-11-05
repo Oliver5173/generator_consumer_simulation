@@ -25,21 +25,20 @@ typedef struct
 	int queue[11];
 	int head; 
 	int tail;
-} buffer_input;
+} buffer_input,buffer_output;
 
 /*mutex for input bufifer and output buffer*/
 pthread_mutex_t wait_mutex,tool_mutex,input_mutex,output_mutex;
 
 /*input buffer*/
 buffer_input *ibuffer;
-
+buffer_output *oqueue;
 int num_op,num_tool,num_wait,num_deadlock;
 int num_material[4];
 
 int num_material_used[4]; /*if product abandoned, the material not used*/
 /*since output buffer is unlimited and won't affect other function of this program, here just use an array to record the number of every product in the output buffer*/
 int obuffer[3];
-
 int can_produce[3]; /*whether this product can be produced this time*/
 
 int genrec_buffer[3]; /*record the most recently material produced*/
@@ -82,7 +81,18 @@ void push_q(buffer_input *q,int x) /*put material into input buffer*/
 	if(q->head==11) q->head=0;
 	return;
 }
+void push_out(buffer_output *q,int x)
+{
+	if(q->head-q->tail==10) q->tail=1;
+	if(q->tail-q->head==1) {q->tail++; if(q->tail==11) q->tail=0;}
 
+	q->queue[(q->head)++]=x;
+	genrec_buffer[2]=genrec_buffer[1];
+	genrec_buffer[1]=genrec_buffer[0];
+	genrec_buffer[0]=x;
+	if(q->head==11) q->head=0;
+	return;
+}
 int get_q(buffer_input *q) /*get material from input buffer*/
 {
 	int i;
@@ -113,14 +123,17 @@ void outp(int x,int y) /*produce this product*/
 	can_produce[2]=1;
 	if(i==2 && j==1) 
 	{
+		push_out(oqueue,1);
 		obuffer[0]++; 
 		can_produce[0]=0; /*can not produce the same product next*/
 	} else if(i==3 && j==1) 
 	{
+		push_out(oqueue,2);
 		obuffer[1]++; 
 		can_produce[1]=0;
 	}else
 	{
+		push_out(oqueue,3);
 		obuffer[2]++;
 		can_produce[2]=0;
 	}
@@ -325,11 +338,20 @@ void* dynamic_output(void* ptr)
 	printf(" ->OPERATOR\n\n\n");
 	printf("Operator status:\n");
 	printf("Produce: product1: %d, product2: %d, product3: %d\n",obuffer[0],obuffer[1],obuffer[2]);
-	printf("Tools available now: %d\n",num_tool);
+	pthread_mutex_lock(&output_mutex);
+	printf("First ten of output buffer:");
+	i=oqueue->head;
+	while (i!=oqueue->tail)
+	{
+		i--;
+		if(i==-1) i=10;
+		printf("%d ",oqueue->queue[i]);
+	}
+	pthread_mutex_unlock(&output_mutex);
+	printf("\nTools available now: %d\n",num_tool);
 	printf("%d processes can\'t output the product now and are waiting\n", num_wait);
 	printf("Deadlock happens %d times (Solved by drop products)",num_deadlock);
-	printf("\n\n\n\n\nNote:\nProduct1 = material1 + material2\nproduct2 = material1 + material3\nproduct3 = material2 + material3\n");
-	printf("Please notice that number of material generated maybe a little bigger than number of material used and in the buffer since some product is processing or pending to put to the output buffer\n");
+	printf("\n\nPlease notice that number of material generated maybe a little bigger than number of material used and in the buffer since some product is processing or pending to put to the output buffer\n");
 	printf("\n\n\nPress  key \'CTRL + Z\' to pause the program (I deal with this signal with my own function)\nPress  key \'CTRL + C\' to terminate this program.(I deal with this signal with my own function)\n");
 	printf("Please run this program in full-screen to see all information\n");
 	if(obuffer[0]+obuffer[1]+obuffer[2]>MAXOUTPUT) 
@@ -406,6 +428,9 @@ int main(void)
 	num_tool=3;
 	num_wait=0;
 	num_deadlock=0;
+	oqueue = (buffer_output *)malloc(sizeof(buffer_output));
+	oqueue->tail=0;
+	oqueue ->head=0;
 	ibuffer = (buffer_input *)malloc(sizeof(buffer_input));
 	ibuffer->tail=0;
 	ibuffer->head=0;

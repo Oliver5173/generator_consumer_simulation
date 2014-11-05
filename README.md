@@ -8,7 +8,7 @@ The hw2 is an executable file compiled from simulation.c (gcc -o hw2 -lpthread s
 3. Use combination key ctrl+z to pause/resume the program and ctrl+c to terminate the program  
   
   
-**IMPORTANT: THIS PROGRAM SHOULD RUN IN FULL-SCREEN COMMAND-LINE-WINDOW to display normally.**  
+#IMPORTANT: THIS PROGRAM SHOULD RUN IN FULL-SCREEN COMMAND-LINE-WINDOW to display normally.  
   
 The functions dealing with Ctrl+Z and Ctrl+C to pause/resume/terminate program are written by myself.   
   
