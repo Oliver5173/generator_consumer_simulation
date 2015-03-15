@@ -1,18 +1,3 @@
-/***************************
-
-  *HW2 MULTITHREAD SIMULATION*
-
-  *    Author: Zeyu Zhao     *
-
-  * Student Number:301267023 *
-
-  *   Date: NOV. 2, 2014     *
-
-  *                          *
-
-  *   ALL RIGHTS RESERVED    *
-
-  ***************************/
 #include<stdio.h>
 #include<signal.h>
 #include<unistd.h>
