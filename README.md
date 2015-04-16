@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/zeruniverse/generator_consumer_simulation.svg?branch=master)](https://travis-ci.org/zeruniverse/generator_consumer_simulation)    
+  
 Source code for this assignment is simulation.c  
 The hw2 is an executable file compiled from simulation.c (gcc -o hw2 -lpthread simulation.c)  
   
