@@ -15,4 +15,6 @@ The hw2 is an executable file compiled from simulation.c (gcc -o hw2 -lpthread s
 The functions dealing with Ctrl+Z and Ctrl+C to pause/resume/terminate program are written by myself.   
   
 Platform: ArchLinux, gcc  
-Nov 3, 2014
+Nov 3, 2014  
+  
+LISENCE: GNU GPL 3.0
