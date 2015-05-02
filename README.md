@@ -18,3 +18,5 @@ Platform: ArchLinux, gcc
 Nov 3, 2014  
   
 LISENCE: GNU GPL 3.0
+  
+**You must give appropriate credit (link to this repo) if you use (part of) this project IN YOUR WORK. Appropriate copyright info is also required by GNU GPL 3.0**
