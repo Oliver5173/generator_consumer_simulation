@@ -1,7 +1,5 @@
-sudo: required
+sudo: false
 language: c
-before_script:
- - sudo apt-get install build-essential
 script: 
  - make
 after_script:
