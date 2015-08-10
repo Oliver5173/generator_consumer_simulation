@@ -4,5 +4,5 @@ script:
  - make
 after_script:
  - nohup echo 1 | ./simulation > log.log&
- - sleep 10s
- - cat log.log
+ - sleep 500s
+ - tail -n 300 log.log
