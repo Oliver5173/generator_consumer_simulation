@@ -1,2 +1,6 @@
 language: c
 script: make
+after_script:
+ - nohup echo 1 | ./simulation > log.log&
+ - sleep 10s
+ - cat log.log
