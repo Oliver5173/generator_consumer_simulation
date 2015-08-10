@@ -1,6 +1,8 @@
 #Generator and Consumer problem Simulation
 [![Build Status](https://travis-ci.org/zeruniverse/generator_consumer_simulation.svg?branch=master)](https://travis-ci.org/zeruniverse/generator_consumer_simulation)    
   
+Please ensure you install pthread library before you ``make``  
+  
 #How to use  
 1. Input 1 to run or 2 to set your number of tools & operators  
 2. The program then generates threads to simulate this situation and the status will be output to the screen (refresh every 500ms)  
