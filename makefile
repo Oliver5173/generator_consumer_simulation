@@ -1,2 +1,2 @@
 simulation: simulation.c
-	gcc -o simulation -lpthread simulation.c
+	gcc -o simulation simulation.c -lpthread
