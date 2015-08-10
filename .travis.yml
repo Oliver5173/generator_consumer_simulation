@@ -1,6 +1,7 @@
-sudo:false
+sudo: false
 language: c
-script: make
+script: 
+ - make
 after_script:
  - nohup echo 1 | ./simulation > log.log&
  - sleep 10s
