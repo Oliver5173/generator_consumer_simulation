@@ -384,7 +384,7 @@ int main(void)
 	printf("\033[2J\033[1;1H");
 	printf("******************************************************\n");
 	printf("*    Welcome to use my multithreading simulation     *\n");
-	printf("*         Zeyu Zhao, ALL RIGHTS RESERVED             *\n");
+	printf("*        Jeffery Zhao, ALL RIGHTS RESERVED           *\n");
 	printf("*                                                    *\n");
 	printf("*   PLEASE INPUT NUMBER 1 OR 2 TO START SIMULATION   *\n");
 	printf("*  [1]Run as default mode(3 tools and 3 generators)  *\n");
